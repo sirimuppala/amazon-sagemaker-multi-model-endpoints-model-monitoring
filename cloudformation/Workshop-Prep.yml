@@ -1,0 +1,81 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Setup resources for SageMaker deployment options workshop.
+Parameters: 
+  UniqueID: 
+    Type: String
+    Default: reinvent
+    Description: Enter your initials in lower case as a unique identifier for components created, if you are sharing this AWS account with other users. Use a minimum of three characters
+    AllowedPattern: "^([a-z]|(d(?!d{0,2}.d{1,3}.d{1,3}.d{1,3})))([a-zd]|(.(?!(.|-)))|(-(?!.))){1,61}[a-zd.]$"
+
+Resources:
+  SageMakerNotebookLifecycleConfig:
+    Type: AWS::SageMaker::NotebookInstanceLifecycleConfig
+    Properties:
+      NotebookInstanceLifecycleConfigName:
+        Fn::Join:
+          - ""
+          - - "DeploymentOptionsLifecycleConfig"
+            - !Ref UniqueID
+      OnCreate:
+        - Content: 
+            Fn::Base64: !Sub |
+                #!/bin/bash
+                set -e
+                sudo -i -u ec2-user bash << EOF
+                echo "Setup the Workshop"
+                pwd
+                #For not we are not cloning a repo, since we are working with a private repo.  TODO : Fix.
+                #git clone https://github.com/sirimuppala/customer-event-sequence-prediction.git
+                #pwd
+                #ls -la
+                #cp -R /home/ec2-user/customer-event-sequence-prediction/* /home/ec2-user/SageMaker/
+
+  SageMakerNotebookInstance:
+    Type: AWS::SageMaker::NotebookInstance
+    Properties: 
+      InstanceType: ml.t2.large
+      LifecycleConfigName:
+        Fn::Join:
+          - ""
+          - - "DeploymentOptionsLifecycleConfig"
+            - !Ref UniqueID
+      NotebookInstanceName:
+        Fn::Join:
+            - ""
+            - - "DeploymentOptions-Notebook-"
+              - !Ref UniqueID
+      RoleArn: !GetAtt [SageMakerNotebookInstanceRole, Arn]
+      
+  SageMakerNotebookInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: sagemaker.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+          - arn:aws:iam::aws:policy/AmazonS3FullAccess
+      RoleName:
+        Fn::Join:
+           - ""
+           - - "SageMakerNotebookInstance-ServiceRole"
+             - !Ref UniqueID
+             - "-"
+             - !Select
+              - 0
+              - !Split
+               - "-"
+               - !Select
+                 - 2
+                 - !Split
+                   - "/"
+                   - !Ref "AWS::StackId"
+
+Outputs:
+      SageMakerNotebookInstance:
+        Description: The ID of the SageMaker Notebook Instance
+        Value: !Ref SageMakerNotebookInstance
