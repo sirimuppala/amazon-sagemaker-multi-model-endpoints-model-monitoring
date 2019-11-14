@@ -53,7 +53,7 @@ In this step, you will execute a Cloud Formation template to do some initial set
 1.11. After a few minutes, you will see your stack Status change to '**CREATE_COMPLETE**'.  You're encouraged to go explore the resources created as part of this initial setup. 
 </details>
 
-Code organization :
+# Code organization
 * pretrained models : Notebooks for training movie and music recommendation models.  Models trained will be saved to an S3 buckets and will be made available.  These files will NOT be used for the deployment workshop.
 * model-monitoring : Notebook(s) to demonstrate the model monitoring / data capture functionality
 * multi-model-endpoint : Notebook(s) and supporting code for deploying both movie and music recommendation models behind a single endpoint.
