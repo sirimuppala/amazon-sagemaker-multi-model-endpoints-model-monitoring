@@ -32,7 +32,7 @@ In this step, you will execute a Cloud Formation template to do some initial set
     
 1.6. Under **Specify Stack Details**, enter: 
 
-   * **Stack Name**: LSTM-WorkshopSetup 
+   * **Stack Name**: Enter SageMakerDeploymentOptions
 
    *  **UniqueID**: Enter *yourinitials* in lower case (Example: jdd)
 
@@ -57,3 +57,17 @@ In this step, you will execute a Cloud Formation template to do some initial set
 * pretrained models : Notebooks for training movie and music recommendation models.  Models trained will be saved to an S3 buckets and will be made available.  These files will NOT be used for the deployment workshop.
 * model-monitoring : Notebook(s) to demonstrate the model monitoring / data capture functionality
 * multi-model-endpoint : Notebook(s) and supporting code for deploying both movie and music recommendation models behind a single endpoint.
+
+# High Level Steps
+
+* Explore Model Monitoring and Data Capture
+  
+  Use RhineStone to explore model-monitoring and data capture. (Waiting on access to put together the whole sequence)
+  
+  (For now - Execute model-monitoring/monitor_xgboost_recommendation_model.ipynb
+
+* Explore hosting multiple models behind a single endpoint
+
+  TBD : Can we use Rhinestone to explore this?
+  
+  (For now - Execute multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb)
