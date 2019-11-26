@@ -6,6 +6,8 @@
   
   ### Step 1 - Setup
 
+(Note : For ReInvent, the workshop conductors will do this step ahead of time in the event engine)
+
 In this step, you will execute a Cloud Formation template to do some initial setup of our environment including creating:
 
 * SageMaker Notebook Instance: This notebook instance will be used as our lab environment after our initial setups required for setting up the workshop.
@@ -62,12 +64,12 @@ In this step, you will execute a Cloud Formation template to do some initial set
 
 * Explore Model Monitoring and Data Capture
   
-  Use RhineStone to explore model-monitoring and data capture. (Waiting on access to put together the whole sequence)
+  (Not ready yet : Use Amazon SageMaker Studio  to explore model-monitoring and data capture. (Waiting on access to put together the whole sequence))
   
-  (For now - Execute model-monitoring/monitor_xgboost_recommendation_model.ipynb
+  (For now -  Open the jupyter notebook model-monitoring/monitor_xgboost_recommendation_model.ipynb in the SageMaker instance created above and execute each cell.
 
 * Explore hosting multiple models behind a single endpoint
 
-  TBD : Can we use Rhinestone to explore this?
+  (Not ready yet : Use Amazon SageMaker Studio  to explore multi model endpoints (Waiting on access to put together the whole sequence))
   
-  (For now - Execute multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb)
+  For now - Open the jupyter notebook multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb in the SageMaker instance created above and execute each cell.
