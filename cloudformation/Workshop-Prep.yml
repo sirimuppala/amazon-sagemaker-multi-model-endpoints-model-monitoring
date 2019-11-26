@@ -51,6 +51,7 @@ Resources:
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/model.tar.gz -P models
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/music-recommendation-models/music-rec-kiran.tar.gz -P models
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train_age.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/baseline.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test_age.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_test.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/temp-service-folder/sagemaker-internal-model.json -P .
@@ -146,11 +147,75 @@ Resources:
       Handler: "index.handler"
       Code:
         ZipFile: !Sub |
+          import boto3
+          import os
           import json
+          import datetime
+          from time import gmtime, strftime
+          from boto3.session import Session
 
-          def handler(event,context):
-            #Creating delete request
-            print("Retrain the model")
+          region = boto3.session.Session().region_name
+
+          sagemaker = boto3.client('sagemaker')
+
+          def handler(event, context):
+
+            print('Into handler')
+
+            container_path='246618743249.dkr.ecr.us-west-2.amazonaws.com/sagemaker-xgboost:0.90-1-cpu-py3'
+
+            model_artifact_bucket="sagemaker-us-west-2-555360056434"
+            job_name="RetrainModelRec"
+            train_instance_count=1
+            train_instance_type="ml.c4.2xlarge"
+            data_bucket="sagemaker-us-west-2-555360056434"  ##NEED TO REPLACE
+            train_volume_size=5
+
+            SageMakerRole="arn:aws:iam::555360056434:role/SageMakerNotebookInstance-ServiceRolereinvent-a92ade50"
+
+            create_training_params = \
+                  {
+                     "AlgorithmSpecification": {
+                          "TrainingImage": container_path,
+                          "TrainingInputMode": "File"
+                      },
+                      "RoleArn": SageMakerRole,
+                      "OutputDataConfig": {
+                          "S3OutputPath": "s3://{}/{}/output".format(model_artifact_bucket, job_name)
+                      },
+                      "ResourceConfig": {
+                          "InstanceCount": train_instance_count,
+                          "InstanceType": train_instance_type,
+                          "VolumeSizeInGB": train_volume_size
+                      },
+                      "TrainingJobName": job_name,
+                      "StoppingCondition": {
+                       "MaxRuntimeInSeconds": 3600
+                      },
+                      "InputDataConfig": [
+                          {
+                              "ChannelName": "train",
+                              "DataSource": {
+                                  "S3DataSource": {
+                                      "S3DataType": "S3Prefix",
+                                      "S3Uri": "s3://{}/train".format(data_bucket),
+                                      "S3DataDistributionType": "FullyReplicated"
+                                  }
+                              },
+                              "ContentType": "csv",
+                              "CompressionType": "None"
+                          }
+                      ],
+                      "OutputDataConfig": {
+                          "S3OutputPath": "s3://{}/{}/output".format(model_artifact_bucket, job_name)
+                      },
+                      "StoppingCondition": {
+                          "MaxRuntimeInSeconds": 60 * 60
+                      }
+                 }
+
+            response = sagemaker.create_training_job(**create_training_params)
+
       Role:
         Fn::GetAtt:
           - "LambdaExecutionRole"
