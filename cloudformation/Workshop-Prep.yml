@@ -48,10 +48,10 @@ Resources:
 
                 #Download pretrained models, training and test data hosted on a S3 bucket.
                 cd /home/ec2-user/SageMaker/
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/movie-rec-all-features.tar.gz -P models
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/model.tar.gz -P models
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/music-recommendation-models/music-rec-kiran.tar.gz -P models
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train_age.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test_age.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_test.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/temp-service-folder/sagemaker-internal-model.json -P .
 
@@ -107,6 +107,66 @@ Resources:
                  - !Split
                    - "/"
                    - !Ref "AWS::StackId"
+
+  RetrainSNSTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+        - Endpoint:
+            Fn::GetAtt:
+              - "RetrainLambda"
+              - "Arn"
+          Protocol: lambda
+
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
+        - arn:aws:iam::aws:policy/AmazonS3FullAccess
+        - arn:aws:iam::aws:policy/CloudWatchFullAccess
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      RoleName:
+        Fn::Join:
+          - ""
+          - - "Movie-Recommendations-Lambda-ServiceRole-"
+            - !Ref UniqueID
+
+
+  RetrainLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: "index.handler"
+      Code:
+        ZipFile: !Sub |
+          import json
+
+          def handler(event,context):
+            #Creating delete request
+            print("Retrain the model")
+      Role:
+        Fn::GetAtt:
+          - "LambdaExecutionRole"
+          - "Arn"
+      Runtime: "python3.6"
+      Timeout: 25
+
+  "LambdaResourcePolicy": {
+    "Type": "AWS::Lambda::Permission",
+    "Properties": {
+      "FunctionName": { "Ref": "RetrainLambda" },
+      "Principal": "sns.amazonaws.com",
+      "Action": "lambda:InvokeFunction",
+      "SourceArn": { "Ref": "RetrainSNSTopic" }
+    }
+  }
 
 Outputs:
       SageMakerNotebookInstance:
