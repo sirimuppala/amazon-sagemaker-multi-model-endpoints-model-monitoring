@@ -43,6 +43,9 @@ Resources:
                 #ls -la
                 #cp -R /home/ec2-user/customer-event-sequence-prediction/* /home/ec2-user/SageMaker/
 
+                #TODO : NEED TO MOVE THIS TO THE CORRECT REPO
+                git clone https://github.com/sirimuppala/customer-churn-prediction-amazon-sagemaker-workshop.git
+
                 #Download pretrained models, training and test data hosted on a S3 bucket.
                 cd /home/ec2-user/SageMaker/
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/movie-rec-all-features.tar.gz -P models
@@ -50,11 +53,20 @@ Resources:
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_test.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/temp-service-folder/sagemaker-internal-model.json -P .
+
+                aws configure add-model --service-model file://sagemaker-internal-model.json --service-name sagemaker
+
+                cp -R /home/ec2-user/customer-churn-prediction-amazon-sagemaker-workshop/prep/deploy_model.py /home/ec2-user/SageMaker/
+
+                nohup python deploy_model.py &
+
+
 
   SageMakerNotebookInstance:
     Type: AWS::SageMaker::NotebookInstance
     Properties: 
-      InstanceType: ml.t2.large
+      InstanceType: ml.t2.medium
       LifecycleConfigName:
         Fn::Join:
           - ""
