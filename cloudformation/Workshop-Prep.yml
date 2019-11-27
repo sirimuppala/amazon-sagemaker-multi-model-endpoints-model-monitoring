@@ -165,13 +165,20 @@ Resources:
             container_path='246618743249.dkr.ecr.us-west-2.amazonaws.com/sagemaker-xgboost:0.90-1-cpu-py3'
 
             model_artifact_bucket="sagemaker-us-west-2-555360056434"
-            job_name="RetrainModelRec"
+            job_name="RetrainMovieRecModel-" + strftime("%Y-%m-%d-%H-%M-%S", gmtime())
             train_instance_count=1
             train_instance_type="ml.c4.2xlarge"
             data_bucket="sagemaker-us-west-2-555360056434"  ##NEED TO REPLACE
-            train_volume_size=5
+            train_volume_size=10
 
             SageMakerRole="arn:aws:iam::555360056434:role/SageMakerNotebookInstance-ServiceRolereinvent-a92ade50"
+
+            maxdepth_in="5"
+            eta_in="0.2"
+            gamma_in="4"
+            min_child_weight_in="6"
+            objective_in="reg:linear"
+            num_round_in="100"
 
             create_training_params = \
                   {
@@ -189,6 +196,14 @@ Resources:
                           "VolumeSizeInGB": train_volume_size
                       },
                       "TrainingJobName": job_name,
+                      "HyperParameters": {
+                          "max_depth": maxdepth_in,
+                          "eta": eta_in,
+                          "gamma": gamma_in,
+                          "min_child_weight": min_child_weight_in,
+                          "objective": objective_in,
+                          "num_round": num_round_in
+                      },
                       "StoppingCondition": {
                        "MaxRuntimeInSeconds": 3600
                       },
@@ -215,6 +230,7 @@ Resources:
                  }
 
             response = sagemaker.create_training_job(**create_training_params)
+
 
       Role:
         Fn::GetAtt:
