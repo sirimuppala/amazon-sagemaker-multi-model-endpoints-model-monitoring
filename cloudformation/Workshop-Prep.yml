@@ -162,7 +162,6 @@ Resources:
 
             print('Into handler')
 
-            container_path='246618743249.dkr.ecr.us-west-2.amazonaws.com/sagemaker-xgboost:0.90-1-cpu-py3'
 
             model_artifact_bucket="sagemaker-us-west-2-555360056434"
             job_name="RetrainMovieRecModel-" + strftime("%Y-%m-%d-%H-%M-%S", gmtime())
@@ -171,7 +170,8 @@ Resources:
             data_bucket="sagemaker-us-west-2-555360056434"  ##NEED TO REPLACE
             train_volume_size=10
 
-            SageMakerRole="arn:aws:iam::555360056434:role/SageMakerNotebookInstance-ServiceRolereinvent-a92ade50"
+            sagemaker_role = os.environ['SageMakerExecutionRole']
+            container_path = os.environ['ContainerPath']
 
             maxdepth_in="5"
             eta_in="0.2"
@@ -186,7 +186,7 @@ Resources:
                           "TrainingImage": container_path,
                           "TrainingInputMode": "File"
                       },
-                      "RoleArn": SageMakerRole,
+                      "RoleArn": sagemaker_role,
                       "OutputDataConfig": {
                           "S3OutputPath": "s3://{}/{}/output".format(model_artifact_bucket, job_name)
                       },
@@ -231,11 +231,14 @@ Resources:
 
             response = sagemaker.create_training_job(**create_training_params)
 
-
       Role:
         Fn::GetAtt:
           - "LambdaExecutionRole"
           - "Arn"
+      Environment:
+        Variables:
+          SageMakerExecutionRole: !GetAtt [SageMakerNotebookInstanceRole, Arn]
+          ContainerPath: '246618743249.dkr.ecr.us-west-2.amazonaws.com/sagemaker-xgboost:0.90-1-cpu-py3'
       Runtime: "python3.6"
       Timeout: 25
 
