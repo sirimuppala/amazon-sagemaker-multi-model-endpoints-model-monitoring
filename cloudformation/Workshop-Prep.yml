@@ -8,6 +8,28 @@ Parameters:
     AllowedPattern: "^([a-z]|(d(?!d{0,2}.d{1,3}.d{1,3}.d{1,3})))([a-zd]|(.(?!(.|-)))|(-(?!.))){1,61}[a-zd.]$"
 
 Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: BucketOwnerFullControl
+      VersioningConfiguration:
+        Status: Enabled
+      BucketName:
+        Fn::Join:
+          - ""
+          - - "deployment-options-workshop"
+            - !Ref UniqueID
+            - "-"
+            - !Select
+              - 0
+              - !Split
+                - "-"
+                - !Select
+                  - 2
+                  - !Split
+                    - "/"
+                    - !Ref "AWS::StackId"
+
   SageMakerNotebookLifecycleConfig:
     Type: AWS::SageMaker::NotebookInstanceLifecycleConfig
     Properties:
@@ -162,16 +184,15 @@ Resources:
 
             print('Into handler')
 
-
-            model_artifact_bucket="sagemaker-us-west-2-555360056434"
             job_name="RetrainMovieRecModel-" + strftime("%Y-%m-%d-%H-%M-%S", gmtime())
             train_instance_count=1
             train_instance_type="ml.c4.2xlarge"
-            data_bucket="sagemaker-us-west-2-555360056434"  ##NEED TO REPLACE
             train_volume_size=10
 
             sagemaker_role = os.environ['SageMakerExecutionRole']
             container_path = os.environ['ContainerPath']
+            model_artifact_bucket= os.environ['S3BucketName']
+            data_bucket= os.environ['S3BucketName']
 
             maxdepth_in="5"
             eta_in="0.2"
@@ -239,6 +260,7 @@ Resources:
         Variables:
           SageMakerExecutionRole: !GetAtt [SageMakerNotebookInstanceRole, Arn]
           ContainerPath: '246618743249.dkr.ecr.us-west-2.amazonaws.com/sagemaker-xgboost:0.90-1-cpu-py3'
+          S3BucketName: !Ref S3Bucket
       Runtime: "python3.6"
       Timeout: 25
 
