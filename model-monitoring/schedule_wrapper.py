@@ -24,7 +24,7 @@ class MonitoringSchedule(object):
             MonitoringScheduleConfig = {
                 'ScheduleConfig': {
                     # every hour
-                    'ScheduleExpression': 'cron(0 * * * *)'
+                    'ScheduleExpression': 'cron(0 * * * ? *)'
                     # every 10 minutes
                     # 'ScheduleExpression': "cron(0/10 * * * ? *)"
                 },
@@ -74,9 +74,9 @@ class MonitoringSchedule(object):
                         #'RecordPreprocessorSourceUri' : record_preprocessor_source_uri,
                         'PostAnalyticsProcessorSourceUri' : post_analytics_source_uri
                     },
-                    'StoppingCondition': {
-                        'MaxRuntimeInSeconds': 6000
-                    },
+                    #'StoppingCondition': {
+                     #   'MaxRuntimeInSeconds': 600000
+                    #},
                     #'Environment: {
                     #    'KeyName': ''
                     #},
