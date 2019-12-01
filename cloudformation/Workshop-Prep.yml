@@ -70,19 +70,21 @@ Resources:
 
                 #Download pretrained models, training and test data hosted on a S3 bucket.
                 cd /home/ec2-user/SageMaker/
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/model.tar.gz -P models
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/model-no-timestamp.tar.gz -P models
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/music-recommendation-models/music-rec-kiran.tar.gz -P models
+
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train_age.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/baseline.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test_age.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movielens_users_items_for_predictions.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/u.item -P data
+
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_test.csv -P data
                 wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/temp-service-folder/sagemaker-internal-model.json -P .
 
                 aws configure add-model --service-model file://sagemaker-internal-model.json --service-name sagemaker
-
                 cp -R /home/ec2-user/customer-churn-prediction-amazon-sagemaker-workshop/prep/deploy_model.py /home/ec2-user/SageMaker/
-
-                nohup python deploy_model.py &
+                #nohup python deploy_model.py &
 
 
 
@@ -278,3 +280,9 @@ Outputs:
       SageMakerNotebookInstance:
         Description: The ID of the SageMaker Notebook Instance
         Value: !Ref SageMakerNotebookInstance
+      S3BucketName:
+        Description: Name of the S3 bucket
+        Value: !Ref S3Bucket
+      SNSTopicName:
+        Description: ARN of the SNS Topic
+        Value: !Ref RetrainSNSTopic
