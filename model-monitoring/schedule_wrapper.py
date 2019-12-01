@@ -24,9 +24,9 @@ class MonitoringSchedule(object):
             MonitoringScheduleConfig = {
                 'ScheduleConfig': {
                     # every hour
-                    #'ScheduleExpression': 'cron(0 * * * *)',
+                    'ScheduleExpression': 'cron(0 * * * *)'
                     # every 10 minutes
-                    'ScheduleExpression': "cron(0/10 * * * ? *)"
+                    # 'ScheduleExpression': "cron(0/10 * * * ? *)"
                 },
                 'MonitoringJobDefinition': {
                     'BaselineConfig': {
