@@ -56,20 +56,43 @@ In this step, you will execute a Cloud Formation template to do some initial set
 </details>
 
 # Code organization
-* pretrained models : Notebooks for training movie and music recommendation models.  Models trained will be saved to an S3 buckets and will be made available.  These files will NOT be used for the deployment workshop.
-* model-monitoring : Notebook(s) to demonstrate the model monitoring / data capture functionality
-* multi-model-endpoint : Notebook(s) and supporting code for deploying both movie and music recommendation models behind a single endpoint.
+
+* pretrained models : Notebook(s) for training movie and music recommendation models.  Models trained will be saved to an S3 buckets and will be made available.  These files will NOT be used for the deployment workshop.
+* model-monitoring : Notebook and supporting to demonstrate the model monitoring / data capture functionality
+* multi-model-endpoint : Notebook and supporting code for deploying both movie and music recommendation models behind a single endpoint.
 
 # High Level Steps
 
-* Explore Model Monitoring and Data Capture
-  
-  (Not ready yet : Use Amazon SageMaker Studio  to explore model-monitoring and data capture. (Waiting on access to put together the whole sequence))
-  
-  (For now -  Open the jupyter notebook model-monitoring/monitor_xgboost_recommendation_model.ipynb in the SageMaker instance created above and execute each cell.
+* Module 1 : Validate AWS account 
+    1. Login to AWS Console using the details provided
+    2. Navigate to CloudFormation console
+	    
+	    * Verify that stack “SageMaker-Deployment-Workshop” is launched.
+        
+        * Visit the Outputs tab and make note of values for 'SNSTopicARN' and 'S3Bucket'
+    3. Navigate to Amazon SageMaker console
+    
+        * Verify that the SageMaker Notebook instance “DeploymentOptions-Notebook-reinvent” is InService.
+        * Click “Open Jupyter”
+        * Verify you see models and data directori
+    
+    
+* Module 2 :  Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
-* Explore hosting multiple models behind a single endpoint
+    In this module of the workshop, you will execute various sections of the notebook 
+model-monitoring/ monitor_xgboost_recommendation_model.ipynb.
 
-  (Not ready yet : Use Amazon SageMaker Studio  to explore multi model endpoints (Waiting on access to put together the whole sequence))
-  
-  For now - Open the jupyter notebook multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb in the SageMaker instance created above and execute each cell.
+    1. Click on model-monitoring/monitor_xgboost_recommendation_model.ipynb to open it.
+    2. Read through the instructions in the notebook and execute cells in the sections below in this order. 
+       *  Section I - Setup
+       *  Section II - Deploy pre-trained model with model data capture enabled
+       *  Section III - Run predictions and analyze data captured
+       *  Section IV – Generate baseline statistics and constraints
+       *  Section V – Monitor and analyze model for data drift 
+       *  Section VI – Retrigger movie recommendation model training 
+
+* Module 3 : Explore Multi Model Endpoints
+    In this module of the workshop, you will execute the cells in
+multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb. 
+    1. Click on multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb to open it.
+    2. Read through the instructions in the notebook and execute cells. 
