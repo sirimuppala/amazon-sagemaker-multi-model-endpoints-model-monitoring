@@ -36,7 +36,7 @@ Resources:
       NotebookInstanceLifecycleConfigName:
         Fn::Join:
           - ""
-          - - "DeploymentOptionsLifecycleConfig"
+          - - "DeploymentOptionsLifecycleConfiguration"
             - !Ref UniqueID
       OnCreate:
         - Content: 
@@ -97,12 +97,12 @@ Resources:
       LifecycleConfigName:
         Fn::Join:
           - ""
-          - - "DeploymentOptionsLifecycleConfig"
+          - - "DeploymentOptionsLifecycleConfiguration"
             - !Ref UniqueID
       NotebookInstanceName:
         Fn::Join:
             - ""
-            - - "DeploymentOptions-Notebook-"
+            - - "DeploymentOptions-"
               - !Ref UniqueID
       RoleArn: !GetAtt [SageMakerNotebookInstanceRole, Arn]
       
@@ -119,6 +119,7 @@ Resources:
       ManagedPolicyArns:
           - arn:aws:iam::aws:policy/AmazonSageMakerFullAccess
           - arn:aws:iam::aws:policy/AmazonS3FullAccess
+          - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess
       RoleName:
         Fn::Join:
            - ""
@@ -163,7 +164,7 @@ Resources:
       RoleName:
         Fn::Join:
           - ""
-          - - "Movie-Recommendations-Lambda-ServiceRole-"
+          - - "Movie-Rec-Lambda-ServiceRole-"
             - !Ref UniqueID
 
 
