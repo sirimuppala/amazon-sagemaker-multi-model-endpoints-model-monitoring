@@ -17,13 +17,22 @@ This workshop is divided into three modules.
   (Note that this is applicable to you, if you are working in AWS conducted workshop)
     1. Login to AWS Console using the details provided
     
-    <details>
-        <summary>Click to expand!</summary>
-        
         ![ee-login](images/ee/EventEngine_Login.png)
         
-    </details> 
-       
+        Enter hash provided. Click "Accept Terms & Login"
+        
+        ![ee-login](images/ee/EventEngine_AWSConsole_Button.png) 
+        
+        Click "AWS Console" 
+        
+        ![ee-login](images/ee/EventEngine_AWSConsole_Tab.png) 
+        
+        Select AWS Console
+        
+        You should be in the AWS Console
+        
+        ![ee-login](images/ee/EventEngine_AWSConsole_View.png) 
+        
     2. Navigate to CloudFormation console.  You should see a CloudFormation stack in "CREATE_COMPLETE" status.
     
     3. Navigate to Amazon SNS console.  You should see a SNS Topic created.
