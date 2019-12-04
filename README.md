@@ -17,11 +17,11 @@ This workshop is divided into three modules.
   (Note that this is applicable to you, if you are working in AWS conducted workshop)
     1. Login to AWS Console using the details provided
     
-        ![ee-login](images/ee/EventEngine_Login.png)
+        ![ee-login](images/ee/EventEngine_Login.png =100x20)
         
         Enter hash provided. Click "Accept Terms & Login"
         
-        ![ee-login](images/ee/EventEngine_AWSConsole_Button.png) 
+        ![ee-login](images/ee/EventEngine_AWSConsole_Button.png =100x20) 
         
         Click "AWS Console" 
         
