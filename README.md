@@ -14,7 +14,7 @@ Now the company wants to undertake two goals.
 This workshop is divided into three modules.
 
 ### Module 1 : Validate AWS Account 
-   1. Login to AWS Console using the details provided
+   1. Login to AWS Console (https://dashboard.eventengine.run) using the details provided
     
       ![ee-login](images/ee/EventEngine_Login.png)
         
