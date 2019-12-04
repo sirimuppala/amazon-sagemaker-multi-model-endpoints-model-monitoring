@@ -38,13 +38,13 @@ This workshop is divided into three modules.
     
    4. Navigate to Lambda console.  You should see a Lambda function created.
     
-   5. Navigate to Amazon SageMaker console. You should see= a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
+   5. Navigate to Amazon SageMaker console. You should see a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
         * Click “Open Jupyter”
         * Verify you see models and data directories as below
         
         ![JupyterNotebookHome](images/JupyterNotebook_Home.png)
         
-    6. These resources are pre created so that the workshop can focus on explore SageMaker deployment and monitoring capabilities.   
+   6. These resources are pre created so that the workshop can focus on explore SageMaker deployment and monitoring capabilities.   
     
 ### Module 2 : Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
