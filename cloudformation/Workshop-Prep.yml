@@ -48,11 +48,11 @@ Resources:
                 pwd
 
                 mkdir /home/ec2-user/SageMaker/model-monitoring
-                mkdir /home/ec2-user/SageMaker/multi-model-endpoints
+                mkdir /home/ec2-user/SageMaker/multi-model-endpoint
 
                 git clone https://github.com/sirimuppala/amazon-sagemaker-multi-model-endpoints-model-monitoring.git
                 cp -R /home/ec2-user/amazon-sagemaker-multi-model-endpoints-model-monitoring/model-monitoring/* /home/ec2-user/SageMaker/model-monitoring/
-                cp -R /home/ec2-user/amazon-sagemaker-multi-model-endpoints-model-monitoring/multi-model-endpoints/* /home/ec2-user/SageMaker/multi-model-endpoints/
+                cp -R /home/ec2-user/amazon-sagemaker-multi-model-endpoints-model-monitoring/multi-model-endpoint/* /home/ec2-user/SageMaker/multi-model-endpoint/
 
                 #Download pretrained models, training and test data hosted on a S3 bucket.
                 cd /home/ec2-user/SageMaker/
