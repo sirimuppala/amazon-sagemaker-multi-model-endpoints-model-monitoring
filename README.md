@@ -14,45 +14,44 @@ Now the company wants to undertake two goals.
 This workshop is divided into three modules.
 
 ### Module 1 : Validate AWS account 
-
-    1. Login to AWS Console using the details provided
+   1. Login to AWS Console using the details provided
     
-        ![ee-login](images/ee/EventEngine_Login.png)
+      ![ee-login](images/ee/EventEngine_Login.png)
         
-        Enter hash provided. Click "Accept Terms & Login"
+      Enter hash provided. Click "Accept Terms & Login"
         
         ![ee-login](images/ee/EventEngine_AWSConsole_Button.png) 
         
-        Click "AWS Console" 
+      Click "AWS Console" 
         
         ![ee-login](images/ee/EventEngine_AWSConsole_Tab.png) 
         
-        Select AWS Console
+       Select AWS Console
         
-        You should be in the AWS Console
+      You should be in the AWS Console
         
         ![ee-login](images/ee/EventEngine_AWSConsole_View.png) 
         
-    2. Navigate to CloudFormation console.  You should see a CloudFormation stack in "CREATE_COMPLETE" status.
+   2. Navigate to CloudFormation console.  You should see a CloudFormation stack in "CREATE_COMPLETE" status.
     
-    3. Navigate to Amazon SNS console.  You should see a SNS Topic created.
+   3. Navigate to Amazon SNS console.  You should see a SNS Topic created.
     
-    4. Navigate to Lambda console.  You should see a Lambda function created.
+   4. Navigate to Lambda console.  You should see a Lambda function created.
     
-    5. Navigate to Amazon SageMaker console. You should see= a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
+   5. Navigate to Amazon SageMaker console. You should see= a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
         * Click “Open Jupyter”
         * Verify you see models and data directories as below
         
         ![JupyterNotebookHome](images/JupyterNotebook_Home.png)
         
-     6. These resources are pre created so that the workshop can focus on explore SageMaker deployment and monitoring capabilities.   
+    6. These resources are pre created so that the workshop can focus on explore SageMaker deployment and monitoring capabilities.   
     
 ### Module 2 : Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
-    In this module of the workshop, you will execute various sections of the notebook "model-monitoring/monitor_xgboost_recommendation_model.ipynb"
+   In this module of the workshop, you will execute various sections of the notebook "model-monitoring/monitor_xgboost_recommendation_model.ipynb"
 
-    1. From the SageMaker notebook instance above, Click on model-monitoring/monitor_xgboost_recommendation_model.ipynb to open it.
-    2. Read through the instructions in the notebook and execute cells in the sections below in this order. 
+   1. From the SageMaker notebook instance above, Click on model-monitoring/monitor_xgboost_recommendation_model.ipynb to open it.
+   2. Read through the instructions in the notebook and execute cells in the sections below in this order. 
        *  Section 1 - Setup
        *  Section 2 - Deploy pre-trained model with model data capture enabled
        *  Section 3 - Run predictions and analyze data captured
@@ -62,6 +61,6 @@ This workshop is divided into three modules.
 
 ### Module 3 : Explore Multi Model Endpoints
 
-    In this module of the workshop, you will execute the cells in "multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb" 
-    1. Click on multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb to open it.
-    2. Read through the instructions in the notebook and execute cells. 
+   In this module of the workshop, you will execute the cells in "multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb" 
+   1. Click on multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb to open it.
+   2. Read through the instructions in the notebook and execute cells. 
