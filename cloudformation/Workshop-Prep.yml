@@ -46,48 +46,27 @@ Resources:
                 sudo -i -u ec2-user bash << EOF
                 echo "Setup the Workshop"
                 pwd
-                #For not we are not cloning a repo, since we are working with a private repo.  TODO : Fix.
-                #git clone https://github.com/sirimuppala/customer-event-sequence-prediction.git
-                #pwd
-                #ls -la
-                #cp -R /home/ec2-user/customer-event-sequence-prediction/* /home/ec2-user/SageMaker/
 
-                #Download pretrained models, training and test data hosted on a S3 bucket.
+                mkdir /home/ec2-user/SageMaker/model-monitoring
+                mkdir /home/ec2-user/SageMaker/multi-model-endpoints
 
-                set -e
-                sudo -i -u ec2-user bash << EOF
-                echo "Setup the Workshop"
-                pwd
-                echo "Setup the Workshop"
-                #For not we are not cloning a repo, since we are working with a private repo.  TODO : Fix.
-                #git clone https://github.com/sirimuppala/customer-event-sequence-prediction.git
-                #pwd
-                #ls -la
-                #cp -R /home/ec2-user/customer-event-sequence-prediction/* /home/ec2-user/SageMaker/
-
-                #TODO : NEED TO MOVE THIS TO THE CORRECT REPO
-                git clone https://github.com/sirimuppala/customer-churn-prediction-amazon-sagemaker-workshop.git
+                git clone https://github.com/sirimuppala/amazon-sagemaker-multi-model-endpoints-model-monitoring.git
+                cp -R /home/ec2-user/amazon-sagemaker-multi-model-endpoints-model-monitoring/model-monitoring/* /home/ec2-user/SageMaker/model-monitoring/
+                cp -R /home/ec2-user/amazon-sagemaker-multi-model-endpoints-model-monitoring/multi-model-endpoints/* /home/ec2-user/SageMaker/multi-model-endpoints/
 
                 #Download pretrained models, training and test data hosted on a S3 bucket.
                 cd /home/ec2-user/SageMaker/
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/model-no-timestamp.tar.gz -P models
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/music-recommendation-models/music-model.tar.gz -P models
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/movie-recommendation-models/latest/movie-rec-model.tar.gz -P models
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/models/music-recommendation-models/latest/music-rec-model.tar.gz -P models
 
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_train_age.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/baseline.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movie_test_age.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/movielens_users_items_for_predictions.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_users_items_for_predictions.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/song_metadata.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/u.item -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/latest/movie_rec_training_data.csv -P data
 
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/music_test.csv -P data
-                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/temp-service-folder/sagemaker-internal-model.json -P .
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/latest/movie_rec_baseline.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/latest/movie_metadata.csv -P data
 
-                aws configure add-model --service-model file://sagemaker-internal-model.json --service-name sagemaker
-                cp -R /home/ec2-user/customer-churn-prediction-amazon-sagemaker-workshop/prep/deploy_model.py /home/ec2-user/SageMaker/
-                #nohup python deploy_model.py &
-
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/movie-recommendations-data/latest/movielens_users_items_for_predictions.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/latest/music_users_items_for_predictions.csv -P data
+                wget https://reinvent-sagemaker-deployment-2019.s3-us-west-2.amazonaws.com/recommendations/data/music-recommendations-data/latest/song_metadata.csv -P data
 
 
   SageMakerNotebookInstance:
@@ -164,7 +143,7 @@ Resources:
       RoleName:
         Fn::Join:
           - ""
-          - - "Movie-Rec-Lambda-ServiceRole-"
+          - - "Movie-Rec-Retrain-Lambda-ServiceRole-"
             - !Ref UniqueID
 
 
@@ -187,7 +166,9 @@ Resources:
 
           def handler(event, context):
 
-            print('Into handler')
+            print('Retraining lambda triggered')
+
+            #Define sagemaker training parameters
 
             job_name="RetrainMovieRecModel-" + strftime("%Y-%m-%d-%H-%M-%S", gmtime())
             train_instance_count=1
