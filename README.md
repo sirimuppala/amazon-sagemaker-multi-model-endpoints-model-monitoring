@@ -1,4 +1,4 @@
-# amazon-sagemaker-multi-model-endpoints-model-monitoring
+# Deploying and managing ML models at scale with Amazon Sagemaker
 
 In this workshop, we deep dive into Amazon SageMaker advanced “Deploy” capabilities such as model deployment, model management, model monitoring for drift detection.  
 
@@ -13,7 +13,7 @@ Now the company wants to undertake two goals.
 
 This workshop is divided into three modules.
 
-### Module 1 : Validate AWS account 
+### Module 1 : Validate AWS Account 
    1. Login to AWS Console using the details provided
     
       ![ee-login](images/ee/EventEngine_Login.png)
