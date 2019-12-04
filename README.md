@@ -13,15 +13,15 @@ Now the company wants to undertake two goals.
 
 This workshop is divided into three modules.
 
-* Module 1 : Validate AWS account 
-  (Note that this is applicable to you, if you are working in AWS conducted workshop)
+### Module 1 : Validate AWS account 
+
     1. Login to AWS Console using the details provided
     
-        ![ee-login](images/ee/EventEngine_Login.png =100x20)
+        ![ee-login](images/ee/EventEngine_Login.png)
         
         Enter hash provided. Click "Accept Terms & Login"
         
-        ![ee-login](images/ee/EventEngine_AWSConsole_Button.png =100x20) 
+        ![ee-login](images/ee/EventEngine_AWSConsole_Button.png) 
         
         Click "AWS Console" 
         
@@ -47,10 +47,9 @@ This workshop is divided into three modules.
         
      6. These resources are pre created so that the workshop can focus on explore SageMaker deployment and monitoring capabilities.   
     
-* Module 2 : Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
+### Module 2 : Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
-    In this module of the workshop, you will execute various sections of the notebook 
-model-monitoring/monitor_xgboost_recommendation_model.ipynb.
+    In this module of the workshop, you will execute various sections of the notebook "model-monitoring/monitor_xgboost_recommendation_model.ipynb"
 
     1. From the SageMaker notebook instance above, Click on model-monitoring/monitor_xgboost_recommendation_model.ipynb to open it.
     2. Read through the instructions in the notebook and execute cells in the sections below in this order. 
@@ -61,8 +60,8 @@ model-monitoring/monitor_xgboost_recommendation_model.ipynb.
        *  Section 5 – Monitor and analyze model for data drift 
        *  Section 6 – Retrigger movie recommendation model training 
 
-* Module 3 : Explore Multi Model Endpoints
-    In this module of the workshop, you will execute the cells in
-multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb. 
+### Module 3 : Explore Multi Model Endpoints
+
+    In this module of the workshop, you will execute the cells in "multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb" 
     1. Click on multi-model-endpoint/multiple_recommendation_models_endpoint.ipynb to open it.
     2. Read through the instructions in the notebook and execute cells. 
