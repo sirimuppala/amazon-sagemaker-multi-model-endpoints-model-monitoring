@@ -17,7 +17,8 @@ This workshop is divided into three modules.
 
 In this module you will create a few resources in your AWS account that are used in the next two modules.  These resources are created in the preparation module, so the rest of the workshop can focus on exploring advanced deployment options on Amazon SageMaker.
 
-##### Detailed Preparation Steps
+<details> 
+<summary> Click to expand for detailed preparation steps </summary>
 
 1.1. Download this git repository by either cloning the repository or downloading the *zip
 
@@ -75,6 +76,8 @@ In this module you will create a few resources in your AWS account that are used
    Click “Open Jupyter”
    
    Verify you see models and data directories
+   
+</details>   
     
 * Module 2 :  Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
