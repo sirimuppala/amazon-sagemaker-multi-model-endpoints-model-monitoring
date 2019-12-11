@@ -15,69 +15,66 @@ This workshop is divided into three modules.
 
 * Module 1 : Workshop Preparation
 
-In this module you will create a few resources in your AWS account that are used in the next two modules.  These resources are created in the preparation module, so the rest of the workshop can focus on exploring advanced deployment options on Amazon SageMaker.
+    In this module you will create a few resources in your AWS account that are used in the next two modules.  These resources are created in the preparation module, so the rest of the workshop can focus on exploring advanced deployment options on Amazon SageMaker.
 
-<details> 
-<summary> Click to expand for detailed preparation steps </summary>
+    <details> 
+    <summary> Click to expand for detailed preparation steps </summary>
 
-1.1. Download this git repository by either cloning the repository or downloading the *zip
+    1.1. Download this git repository by either cloning the repository or downloading the *zip
 
-1.2. Login to the [AWS Console](https://https://console.aws.amazon.com/) and enter your credentials
+    1.2. Login to the [AWS Console](https://https://console.aws.amazon.com/) and enter your credentials
 
-1.3. Under **Services**, select search for and select [CloudFormation](https://console.aws.amazon.com/cloudformation)
+    1.3. Under **Services**, select search for and select [CloudFormation](https://console.aws.amazon.com/cloudformation)
 
-1.4. Click **Create Stack** buttton
+    1.4. Click **Create Stack** buttton
 
    ![CreateStack](images/CreateStack.png)
    
-1.5. Under **Select Template**:
+    1.5. Under **Select Template**:
     * Click radio button next to 'Upload a template to Amazon S3', then click **Browse**
     * From the local repository cloned to your machine in the detailed step 1, select the file ./prep/Workshop-Prep.yml
     * Click **Open**
     ![CreateStack](images/CreateStack-SpecifyTemplate.png)
     
-1.6. Under **Specify Stack Details**, enter: 
+    1.6. Under **Specify Stack Details**, enter: 
 
-   * **Stack Name**: Enter SageMakerDeploymentOptions
+    * **Stack Name**: Enter SageMakerDeploymentOptions
+    *  **UniqueID**: Enter *yourinitials* in lower case (Example: jdd)
 
-   *  **UniqueID**: Enter *yourinitials* in lower case (Example: jdd)
+    ![CreateStack](images/CreateStack-SpecifyStackDetails.png)
 
-   ![CreateStack](images/CreateStack-SpecifyStackDetails.png)
+    1.7. Click **Next**
 
-1.7. Click **Next**
+    1.8. Under **Options**, leave all defaults and click '**Next**'
 
-1.8. Under **Options**, leave all defaults and click '**Next**'
+    1.9. Under **Review**, scroll to the bottom and check the checkbox acknowledging that CloudFormation might create IAM resources and custom names, then click **Create**
 
-1.9. Under **Review**, scroll to the bottom and check the checkbox acknowledging that CloudFormation might create IAM resources and custom names, then click **Create**
+    ![CreateStack](images/CreateStack-IAMCapabilities.png)
 
-![CreateStack](images/CreateStack-IAMCapabilities.png)
+    1.10. You will be returned to the CloudFormation console and will see your stack status '**CREATE_IN_PROGRESS**'
 
-1.10. You will be returned to the CloudFormation console and will see your stack status '**CREATE_IN_PROGRESS**'
+    ![CreateStack](images/CreateStack-CreateInProgress.png)
 
-![CreateStack](images/CreateStack-CreateInProgress.png)
+    1.11. After a few minutes, you will see your stack Status change to '**CREATE_COMPLETE**'.  You're encouraged to go explore the resources created as part of this initial setup. 
 
-1.11. After a few minutes, you will see your stack Status change to '**CREATE_COMPLETE**'.  You're encouraged to go explore the resources created as part of this initial setup. 
+    1.12 Validate the resources created
 
-1.12 Validate the resources created
-
-   a. Navigate to Amazon SNS console.  You should see a SNS Topic created.
+    a. Navigate to Amazon SNS console.  You should see a SNS Topic created.
     
-   b. Navigate to Lambda console.  You should see a Lambda function created.
+    b. Navigate to Lambda console.  You should see a Lambda function created.
     
-   c. Navigate to Amazon SageMaker console. You should see a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
+    c. Navigate to Amazon SageMaker console. You should see a SageMaker Notebook Instance with name "DeploymentOptions-Notebook-reinvent" and status "InService"
         * Click “Open Jupyter”
         * Verify you see models and data directories as below
             ![JupyterNotebookHome](images/JupyterNotebook_Home.png)
         
-   d. Navigate to Amazon SageMaker console
+    d. Navigate to Amazon SageMaker console
    
-   Verify that the SageMaker Notebook instance “DeploymentOptions-Notebook-reinvent” is InService.
+     * Verify that the SageMaker Notebook instance “DeploymentOptions-Notebook-reinvent” is InService.
+     * Click “Open Jupyter”
+     * Verify you see models and data directories
    
-   Click “Open Jupyter”
-   
-   Verify you see models and data directories
-   
-</details>   
+    </details>   
     
 * Module 2 :  Explore Amazon SageMaker Data Capture and Model Monitoring Capabilities
 
