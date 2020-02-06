@@ -13,9 +13,29 @@ Now the company wants to undertake two goals.
 
 This workshop is divided into three modules.
 
-* Module 1 : Workshop Preparation
+   Optional : If you are provided with a temporary account by your AWS team for the workshop, follow this optional section, before starting Module 1.
 
-    In this module you will create a few resources in your AWS account that are used in the next two modules.  These resources are created in the preparation module, so the rest of the workshop can focus on exploring advanced deployment options on Amazon SageMaker.
+   Login to AWS Console (https://dashboard.eventengine.run) using the details provided
+    
+   ![ee-login](images/ee/EventEngine_Login.png)
+        
+   Enter hash provided. Click "Accept Terms & Login"
+        
+   ![ee-login](images/ee/EventEngine_AWSConsole_Button.png) 
+        
+   Click "AWS Console" 
+        
+   ![ee-login](images/ee/EventEngine_AWSConsole_Tab.png) 
+        
+   Select AWS Console
+        
+   You should be in the AWS Console
+        
+   ![ee-login](images/ee/EventEngine_AWSConsole_View.png) 
+
+* Module 1 : Workshop Preparation
+    
+    In this module you will create a few resources in your AWS account that are used in the next two modules.  These resources are created in the preparation module, so the rest of the workshop can focus on exploring advanced deployment options on Amazon SageMaker. 
 
     <details> 
     <summary> Click to expand for detailed preparation steps </summary>
